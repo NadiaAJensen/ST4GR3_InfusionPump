@@ -4,4 +4,9 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Business Logic layer\" />
+    <Folder Include="Data Access Layer\" />
+  </ItemGroup>
+
 </Project>
