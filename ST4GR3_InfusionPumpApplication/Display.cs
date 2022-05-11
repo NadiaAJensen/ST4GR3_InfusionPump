@@ -11,22 +11,48 @@ namespace ST4GR3_InfusionPumpApplication
 {
     public class Display : IDisplay
     {
-        static SerLCD lcdDisplay;
+        private SerLCD _lcdDisplay;
+        private TWIST _encoder;
+        
 
         public Display()
         {
-            lcdDisplay = new SerLCD();
+            _lcdDisplay = new SerLCD();
+            _encoder = new TWIST();
         }
 
-        public void DisplayMenu(string[] menuText)
+        public byte DisplayMenu(string[] menuText)
         {
             byte c = 0;
             foreach (var line in menuText)
             {
-                lcdDisplay.lcdGotoXY(0, c); 
-                lcdDisplay.lcdPrint(line);
+                _lcdDisplay.lcdGotoXY(0, c); 
+                _lcdDisplay.lcdPrint(line);
                     c++;
             }
+
+            while (true)
+            {
+                int a = _encoder.getDiff(true);
+                if (a < 0)
+                    a = -a;
+                for (int i = a; i >= 0; i = i - 4)
+                {
+                    if (i < 2)
+                    {
+                        c = Convert.ToByte(i + 1);
+                        _lcdDisplay.lcdGotoXY(0, c);
+                        _lcdDisplay.lcdBlink();
+                    }
+                }
+
+                if (_encoder.isPressed())
+                {
+                    return c;
+                }
+            }
+
+
         }
     }
 }

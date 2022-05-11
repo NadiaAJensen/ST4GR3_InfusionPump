@@ -6,10 +6,14 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST4GR3_InfusionPump_Test", "ST4GR3_InfusionPump_Test\ST4GR3_InfusionPump_Test.csproj", "{7B39A64A-990D-4C98-BE47-0AD1DEEB623A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IP_BusinessLogicLayer", "IP_BusinessLogicLayer\IP_BusinessLogicLayer.csproj", "{3927CCB4-2CD1-4463-A8A9-C9E531AE8FAC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A37F7469-50C2-4EFA-963F-D38F170B42D8} = {A37F7469-50C2-4EFA-963F-D38F170B42D8}
+		{125C4090-4405-4362-8566-8E5A60F117C3} = {125C4090-4405-4362-8566-8E5A60F117C3}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IP_DataAccessLayer", "IP_DataAccessLayer\IP_DataAccessLayer.csproj", "{125C4090-4405-4362-8566-8E5A60F117C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ST4GR3_InfusionPumpApplication", "ST4GR3_InfusionPumpApplication\ST4GR3_InfusionPumpApplication.csproj", "{A37F7469-50C2-4EFA-963F-D38F170B42D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST4GR3_InfusionPumpApplication", "ST4GR3_InfusionPumpApplication\ST4GR3_InfusionPumpApplication.csproj", "{A37F7469-50C2-4EFA-963F-D38F170B42D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

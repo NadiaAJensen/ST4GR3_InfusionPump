@@ -9,6 +9,6 @@ namespace ST4GR3_InfusionPumpApplication.Interfaces
 {
     interface IDisplay
     {
-        void DisplayMenu(string[] MenuText);
+        byte DisplayMenu(string[] MenuText);
     }
 }
