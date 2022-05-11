@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IP_DataAccessLayer\IP_DataAccessLayer.csproj" />
-    <ProjectReference Include="..\ST4GR3_InfusionPumpApplication\ST4GR3_InfusionPumpApplication.csproj" />
   </ItemGroup>
 
 </Project>

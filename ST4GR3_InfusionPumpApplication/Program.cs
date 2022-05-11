@@ -3,7 +3,11 @@ using RaspberryPiNetCore.JoySticks;
 using RaspberryPiNetCore.LCD;
 using RaspberryPiNetCore.TWIST;
 using System;
+using System.Threading;
+using IP_BusinessLogicLayer;
 using Microsoft.VisualBasic.CompilerServices;
+
+
 
 
 namespace ST4GR3_InfusionPumpApplication
@@ -12,12 +16,15 @@ namespace ST4GR3_InfusionPumpApplication
     {
         static void Main(string[] args)
         {
-            
-
             Display _display = new Display();
+            Thread displayThread = new Thread(_display.Run);
+            displayThread.IsBackground = true;
 
-            string[] text1 = new[] {"Hej", " Det", "er", "en Test"};
-            _display.DisplayMenu(text1);
+            while (true)
+            {
+                
+            }
+            
         }
     }
 }
