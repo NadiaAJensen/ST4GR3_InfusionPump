@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RaspberryPiNetCore.WiringPi;
 
 namespace ST4GR3_InfusionPumpApplication.Interfaces
 {
-    interface IDisplay
+    public interface IButton
     {
-        void DisplayMenu(string[] MenuText);
-        void Run();
+        bool IsPressed();
     }
 }

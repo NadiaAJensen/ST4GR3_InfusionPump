@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IP_BusinessLogicLayer.Interfaces;
 using IP_DataAccessLayer;
 //using ST4GR3_InfusionPumpApplication;
 
 namespace IP_BusinessLogicLayer
 {
-    public class MenuController
+    public class MenuController : IMenuController
     {
         private MenuList _menuList;
         //private Display _display;
