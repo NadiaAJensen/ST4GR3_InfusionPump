@@ -4,4 +4,8 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ST4GR3_InfusionPumpApplication\ST4GR3_InfusionPumpApplication.csproj" />
+  </ItemGroup>
+
 </Project>

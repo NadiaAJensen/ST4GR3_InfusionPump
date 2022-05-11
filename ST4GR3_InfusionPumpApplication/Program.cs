@@ -12,6 +12,8 @@ namespace ST4GR3_InfusionPumpApplication
     {
         static void Main(string[] args)
         {
+            
+
             Display _display = new Display();
 
             string[] text1 = new[] {"Hej", " Det", "er", "en Test"};
