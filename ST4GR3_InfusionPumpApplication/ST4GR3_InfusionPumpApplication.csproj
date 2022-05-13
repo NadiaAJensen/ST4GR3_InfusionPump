@@ -15,7 +15,7 @@
     <ProjectReference Include="..\IP_BusinessLogicLayer\IP_BusinessLogicLayer.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
+	<ItemGroup>
     <Reference Include="RaspberryNetCore">
       <HintPath>C:\RaspberryPi\RaspberryNetCore.dll</HintPath>
     </Reference>
