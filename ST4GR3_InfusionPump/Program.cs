@@ -1,4 +1,5 @@
 ﻿using System;
+using RaspberryPiNetCore.LCD;
 
 namespace ST4GR3_InfusionPump
 {
@@ -6,7 +7,7 @@ namespace ST4GR3_InfusionPump
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            
         }
     }
 }
