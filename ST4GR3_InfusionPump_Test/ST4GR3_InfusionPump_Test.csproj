@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IP_BusinessLogicLayer\IP_BusinessLogicLayer.csproj" />
-    <ProjectReference Include="..\IP_DataAccessLayer\IP_DataAccessLayer.csproj" />
+    <ProjectReference Include="..\IP_DataAccessLayer1\IP_DataAccessLayer1.csproj" />
     <ProjectReference Include="..\ST4GR3_InfusionPumpApplication\ST4GR3_InfusionPumpApplication.csproj" />
   </ItemGroup>
 
