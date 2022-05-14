@@ -23,10 +23,10 @@ namespace ST4GR3_InfusionPumpApplication
         private string[] _currentMenu;
         
 
-        public Display(IMenuController menuController, TWIST encoder, IButton startButton, IButton pauseButton, IButton stopButton)
+        public Display(IMenuController menuController, IButton startButton, IButton pauseButton, IButton stopButton)
         {
             _lcdDisplay = new SerLCD();
-            _encoder = encoder;
+            _encoder = new TWIST();
             _menuController = menuController;
             _startButton = startButton;
             _pauseButton = pauseButton;

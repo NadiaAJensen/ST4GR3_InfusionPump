@@ -21,10 +21,10 @@ namespace ST4GR3_InfusionPumpApplication
             IButton _pauseButton = new Button(24);
             IButton _stopButton = new Button(25); // Pin skal ændres til hvordan det sættes op.
             IMenuController _menuController = new MenuController();
-            TWIST _encoder = new TWIST();
+            
 
 
-            IDisplay _display = new Display(_menuController, _encoder, _startButton, _pauseButton, _stopButton);
+            IDisplay _display = new Display(_menuController,  _startButton, _pauseButton, _stopButton);
             Thread displayThread = new Thread(_display.Run);
             displayThread.IsBackground = true;
 
