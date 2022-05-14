@@ -1,32 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Device.Gpio;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using RaspberryPiNetCore.WiringPi;
 using ST4GR3_InfusionPumpApplication.Interfaces;
-//using System.Device.Gpio;
 
 namespace ST4GR3_InfusionPumpApplication
 {
     public class Button : IButton
     {
+        public GpioController GpioControl
+        {
+            get; set;
+
+        }
+
         private int _gpioPin;
         private bool _value;
         public Button(int pinNumber)
         {
             _gpioPin = pinNumber;
-           GPIO.pinMode(pinNumber, 0);
-           _value = false;
+            _value = false;
         }
         public bool IsPressed()
         {
-            int buttonDigitalRead = GPIO.digitalRead(_gpioPin);
-
-            if (buttonDigitalRead == 1)
+            if (GpioControl.Read(_gpioPin)==PinValue.High)
                 _value = true;
-            else if (buttonDigitalRead == 0)
+            else if (GpioControl.Read(_gpioPin) == PinValue.Low)
                 _value = false;
             Thread.Sleep(50);
 

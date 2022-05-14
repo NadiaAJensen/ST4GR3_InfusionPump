@@ -12,6 +12,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Device.Gpio" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\IP_BusinessLogicLayer\IP_BusinessLogicLayer.csproj" />
   </ItemGroup>
 
