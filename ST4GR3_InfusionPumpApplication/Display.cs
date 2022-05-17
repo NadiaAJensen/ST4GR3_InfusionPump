@@ -29,7 +29,6 @@ namespace ST4GR3_InfusionPumpApplication
             _lcdDisplay = new SerLCD();
             _encoder = new TWIST();
             _menuController = menuController;
-            _alarmControl = alarmControl;
             _startButton = startButton;
             _pauseButton = pauseButton;
             _stopButton = stopButton;

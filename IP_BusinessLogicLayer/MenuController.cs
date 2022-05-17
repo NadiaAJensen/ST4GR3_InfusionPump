@@ -22,7 +22,7 @@ namespace IP_BusinessLogicLayer
             _batteryStatus = batteryStatus;
             _menuList = new MenuList();
             _newMenu = new string[4];
-            _alarmControl.ChangedBatteryStatus += new EventHandler(BatteryStatusChanged);
+            _batteryStatus.ChangedBatteryStatus += new EventHandler(BatteryStatusChanged);
 
         }
 
@@ -99,7 +99,7 @@ namespace IP_BusinessLogicLayer
 
         public void BatteryStatusChanged(object sender, EventArgs e)
         {
-            _menuList.BatteriNiveau = Convert.ToString(_alarmControl.GetBatteryLevel());
+            _menuList.BatteriNiveau = Convert.ToString(_batteryStatus.GetBatteryLevel());
             _menuList.ReloadMenues();
         }
 

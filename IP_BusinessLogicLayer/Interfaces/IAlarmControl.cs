@@ -8,9 +8,6 @@ namespace IP_BusinessLogicLayer.Interfaces
 {
     public interface IAlarmControl
     {
-        event EventHandler ChangedBatteryStatus;
         void Run();
-        void CalculateBatteryStatus();
-        int GetBatteryLevel();
     }
 }
