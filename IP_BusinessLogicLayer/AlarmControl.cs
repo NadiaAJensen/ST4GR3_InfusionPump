@@ -16,17 +16,19 @@ namespace IP_BusinessLogicLayer
         private ITimer _timer;
         public event EventHandler Alarm;
         public string[] LastAlarmMessage { get; private set; }
+        public string AlarmColor { get; private set; }
         public AlarmControl(IBatteryStatus batteryStatus, ITimer timer)
         {
             _batteryStatus = batteryStatus;
             _timer = timer;
             _timer.Expired += new EventHandler(OnTimerExpired);
             _batteryStatus.LowBatteryLevel += new EventHandler(AlertLowBatteryLevel);
+            LastAlarmMessage = new string[2];
         }
 
         public void Run()
         {
-            
+            // Måske denne tråd skal sætte tiden i gang
             while (true)
             {
                 _batteryStatus.CalculateBatteryStatus();
@@ -37,12 +39,26 @@ namespace IP_BusinessLogicLayer
 
         public void OnTimerExpired(object sender, EventArgs e)
         {
-            
+            LastAlarmMessage[0] = "Behandlingen er";
+            LastAlarmMessage[1] = "faerdig";
+            AlarmColor = "Yellow";
+            Alarm?.Invoke(this,System.EventArgs.Empty);
         }
         public void AlertLowBatteryLevel(object sender, EventArgs e)
         {
             int value = _batteryStatus.GetBatteryLevel();
-            LastAlarmMessage = new[] {$"Batteristatus: {value}%"};
+            LastAlarmMessage[0] = ($"Batteristatus: {value}%");
+            LastAlarmMessage[1] = "";
+            AlarmColor = "Red";
+            Alarm?.Invoke(this, System.EventArgs.Empty);
+        }
+
+        public void BobbleDetected(object sender, EventArgs e)
+        {
+            //Simulerer, at der er bobbel i røret. 
+            LastAlarmMessage[0] = ("Boble detekteret");
+            LastAlarmMessage[1] = "";
+            AlarmColor = "Red";
             Alarm?.Invoke(this, System.EventArgs.Empty);
         }
 

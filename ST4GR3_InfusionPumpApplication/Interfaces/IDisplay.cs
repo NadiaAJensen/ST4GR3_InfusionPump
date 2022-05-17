@@ -10,6 +10,7 @@ namespace ST4GR3_InfusionPumpApplication.Interfaces
     interface IDisplay
     {
         void DisplayMenu(string[] MenuText);
+        void DisplayAlarm(object sender, EventArgs e);
         void Run();
     }
 }

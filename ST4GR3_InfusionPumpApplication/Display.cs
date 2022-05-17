@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using IP_BusinessLogicLayer;
 using IP_BusinessLogicLayer.Interfaces;
@@ -19,12 +20,13 @@ namespace ST4GR3_InfusionPumpApplication
         private IButton _startButton;
         private IButton _pauseButton;
         private IButton _stopButton;
+        private IAlarmControl _alarmControl;
         private bool _breakloop;
         private string[] _currentMenu;
         
         
 
-        public Display(IMenuController menuController, IButton startButton, IButton pauseButton, IButton stopButton)
+        public Display(IMenuController menuController, IButton startButton, IButton pauseButton, IButton stopButton, IAlarmControl alarmControl)
         {
             _lcdDisplay = new SerLCD();
             _encoder = new TWIST();
@@ -32,10 +34,11 @@ namespace ST4GR3_InfusionPumpApplication
             _startButton = startButton;
             _pauseButton = pauseButton;
             _stopButton = stopButton;
+            _alarmControl = alarmControl;
             _currentMenu = new string[4];
             _breakloop = true;
 
-           
+            _alarmControl.Alarm += new EventHandler(DisplayAlarm);
 
         }
 
@@ -102,7 +105,35 @@ namespace ST4GR3_InfusionPumpApplication
 
                 }
             }
+        }
 
+        public void DisplayAlarm(object sender, EventArgs e)
+        {
+            _lcdDisplay.lcdClear();
+            switch (_alarmControl.AlarmColor) // Tjekker først alarm koden
+            {
+                case "Red":
+                    _lcdDisplay.lcdSetBackLight(255, 0, 0);
+                    break;
+                case "Yellow":
+                    _lcdDisplay.lcdSetBackLight(255,255,0);
+                    break;
+            }
+
+            byte c = 0;
+            foreach (var line in _alarmControl.LastAlarmMessage)
+            {
+                _lcdDisplay.lcdGotoXY(0, c);
+                _lcdDisplay.lcdPrint(line);
+                c++;
+            }
+
+            while (true)
+            {
+                if (_encoder.isPressed())
+                    break;
+            }
+            
 
         }
     }

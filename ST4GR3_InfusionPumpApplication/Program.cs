@@ -25,7 +25,7 @@ namespace ST4GR3_InfusionPumpApplication
             IAlarmControl _alarmController = new AlarmControl(_batteryStatus, _timer);
             IMenuController _menuController = new MenuController(_alarmController, _batteryStatus, _timer);
 
-            IDisplay _display = new Display(_menuController,  _startButton, _pauseButton, _stopButton);
+            IDisplay _display = new Display(_menuController,  _startButton, _pauseButton, _stopButton, _alarmController);
             Thread displayThread = new Thread(_display.Run);
             Thread alarmThread = new Thread(_alarmController.Run);
             displayThread.IsBackground = true;
