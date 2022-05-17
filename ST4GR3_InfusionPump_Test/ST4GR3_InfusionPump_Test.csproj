@@ -18,4 +18,10 @@
     <PackageReference Include="NunitXml.TestLogger" Version="3.0.117" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\IP_BusinessLogicLayer\IP_BusinessLogicLayer.csproj" />
+    <ProjectReference Include="..\IP_DataAccessLayer1\IP_DataAccessLayer1.csproj" />
+    <ProjectReference Include="..\ST4GR3_InfusionPumpApplication\ST4GR3_InfusionPumpApplication.csproj" />
+  </ItemGroup>
+
 </Project>
