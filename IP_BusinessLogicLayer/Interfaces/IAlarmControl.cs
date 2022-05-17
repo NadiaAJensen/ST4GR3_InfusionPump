@@ -9,7 +9,7 @@ namespace IP_BusinessLogicLayer.Interfaces
     public interface IAlarmControl
     {
         string[] LastAlarmMessage { get; }
-        string AlarmColor { get; }
+        string AlarmCode { get; }
         event EventHandler Alarm;
         void Run();
         void BobbleDetected(object sender, EventArgs e);

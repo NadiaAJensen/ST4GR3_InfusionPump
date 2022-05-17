@@ -16,7 +16,7 @@ namespace IP_BusinessLogicLayer
         private ITimer _timer;
         public event EventHandler Alarm;
         public string[] LastAlarmMessage { get; private set; }
-        public string AlarmColor { get; private set; }
+        public string AlarmCode { get; private set; }
         public AlarmControl(IBatteryStatus batteryStatus, ITimer timer)
         {
             _batteryStatus = batteryStatus;
@@ -41,16 +41,18 @@ namespace IP_BusinessLogicLayer
         {
             LastAlarmMessage[0] = "Behandlingen er";
             LastAlarmMessage[1] = "faerdig";
-            AlarmColor = "Yellow";
+            AlarmCode = "Tid";
             Alarm?.Invoke(this,System.EventArgs.Empty);
+            //Vi skal desuden have informeret ICA
         }
         public void AlertLowBatteryLevel(object sender, EventArgs e)
         {
             int value = _batteryStatus.GetBatteryLevel();
             LastAlarmMessage[0] = ($"Batteristatus: {value}%");
             LastAlarmMessage[1] = "";
-            AlarmColor = "Red";
+            AlarmCode = "Batteri";
             Alarm?.Invoke(this, System.EventArgs.Empty);
+            //Vi skal desuden have informeret ICA
         }
 
         public void BobbleDetected(object sender, EventArgs e)
@@ -58,8 +60,9 @@ namespace IP_BusinessLogicLayer
             //Simulerer, at der er bobbel i røret. 
             LastAlarmMessage[0] = ("Boble detekteret");
             LastAlarmMessage[1] = "";
-            AlarmColor = "Red";
+            AlarmCode = "Bobbel";
             Alarm?.Invoke(this, System.EventArgs.Empty);
+            //Vi skal desuden have informeret ICA
         }
 
 

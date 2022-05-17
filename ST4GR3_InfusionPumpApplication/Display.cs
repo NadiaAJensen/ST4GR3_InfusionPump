@@ -49,6 +49,7 @@ namespace ST4GR3_InfusionPumpApplication
 
         public void DisplayMenu(string[] menuText)
         {
+            _lcdDisplay.lcdClear();
             while (true)
             {
                 byte c = 0;
@@ -110,12 +111,12 @@ namespace ST4GR3_InfusionPumpApplication
         public void DisplayAlarm(object sender, EventArgs e)
         {
             _lcdDisplay.lcdClear();
-            switch (_alarmControl.AlarmColor) // Tjekker først alarm koden
+            switch (_alarmControl.AlarmCode) // Tjekker først alarm koden
             {
-                case "Red":
+                case "Batteri":
                     _lcdDisplay.lcdSetBackLight(255, 0, 0);
                     break;
-                case "Yellow":
+                case "Tid":
                     _lcdDisplay.lcdSetBackLight(255,255,0);
                     break;
             }
