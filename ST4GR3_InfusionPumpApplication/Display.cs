@@ -19,20 +19,28 @@ namespace ST4GR3_InfusionPumpApplication
         private IButton _startButton;
         private IButton _pauseButton;
         private IButton _stopButton;
+
+        private IAlarmControl _alarmControl;
+
         private bool _breakloop;
         private string[] _currentMenu;
+        private string _latestBatteryLevel;
         
 
-        public Display(IMenuController menuController, IButton startButton, IButton pauseButton, IButton stopButton)
+        public Display(IMenuController menuController, IButton startButton, IButton pauseButton, IButton stopButton, IAlarmControl alarmControl)
         {
             _lcdDisplay = new SerLCD();
             _encoder = new TWIST();
             _menuController = menuController;
+            _alarmControl = alarmControl;
             _startButton = startButton;
             _pauseButton = pauseButton;
             _stopButton = stopButton;
             _currentMenu = new string[4];
             _breakloop = true;
+
+            _alarmControl.ChangedBatteryStatus += new EventHandler(BatteryStatusChanged);
+
         }
 
         public void Run()
@@ -100,6 +108,11 @@ namespace ST4GR3_InfusionPumpApplication
             }
 
 
+        }
+
+        public void BatteryStatusChanged(object sender, EventArgs e)
+        {
+            _latestBatteryLevel = Convert.ToString(_alarmControl.GetBatteryLevel());
         }
     }
 }

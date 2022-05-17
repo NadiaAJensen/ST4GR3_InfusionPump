@@ -22,5 +22,7 @@ namespace IP_DataAccessLayer1
             MenuListDansk.Add(new string[] { "Flow rate:    ml/t", "Tid i alt:  t", "Tid tilbage:  t  min", "Batteristatus:    %" });
             MenuListDansk.Add(new string[] { "Oensker du at", "afslutte?", "Ja", "Nej" });
         }
+
+        
     }
 }

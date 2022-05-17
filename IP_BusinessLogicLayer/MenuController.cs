@@ -4,15 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IP_BusinessLogicLayer.Interfaces;
-using IP_DataAccessLayer;
-//using ST4GR3_InfusionPumpApplication;
+using IP_DataAccessLayer1;
 
 namespace IP_BusinessLogicLayer
 {
     public class MenuController : IMenuController
     {
         private MenuList _menuList;
-        //private Display _display;
         private int _lastMenuIndex;
         private byte _returnMenuCode;
         private string[] _newMenu;
@@ -92,6 +90,11 @@ namespace IP_BusinessLogicLayer
 
             return _newMenu;
 
+        }
+
+        public void ChangeMenuValues()
+        {
+           // _menuList.MenuListDansk[0] 
         }
         
     }

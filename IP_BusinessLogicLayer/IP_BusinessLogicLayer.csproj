@@ -4,4 +4,8 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\IP_DataAccessLayer1\IP_DataAccessLayer1.csproj" />
+  </ItemGroup>
+
 </Project>
