@@ -21,11 +21,9 @@ namespace ST4GR3_InfusionPumpApplication
             IButton _pauseButton = new Button(24);
             IButton _stopButton = new Button(25); // Pin skal ændres til hvordan det sættes op.
             IBatteryStatus _batteryStatus = new BatteryStatus();
+            ITimer _timer = new IP_BusinessLogicLayer.Timer();
             IAlarmControl _alarmController = new AlarmControl(_batteryStatus);
-            IMenuController _menuController = new MenuController(_alarmController, _batteryStatus);
-            
-            
-
+            IMenuController _menuController = new MenuController(_alarmController, _batteryStatus, _timer);
 
             IDisplay _display = new Display(_menuController,  _startButton, _pauseButton, _stopButton);
             Thread displayThread = new Thread(_display.Run);

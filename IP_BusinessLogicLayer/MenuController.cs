@@ -16,13 +16,19 @@ namespace IP_BusinessLogicLayer
         private string[] _newMenu;
         private IAlarmControl _alarmControl;
         private IBatteryStatus _batteryStatus;
-        public MenuController(IAlarmControl alarmControl, IBatteryStatus batteryStatus)
+        private ITimer _timer;
+        private bool _treatmentActive;
+        public MenuController(IAlarmControl alarmControl, IBatteryStatus batteryStatus, ITimer timer)
         {
             _alarmControl = alarmControl;
             _batteryStatus = batteryStatus;
+            _timer = timer;
             _menuList = new MenuList();
             _newMenu = new string[4];
+            _treatmentActive = false;
             _batteryStatus.ChangedBatteryStatus += new EventHandler(BatteryStatusChanged);
+            _timer.Expired += new EventHandler(OnTimerExpired);
+            _timer.TimerTick += new EventHandler(OnTimerTick);
 
         }
 
@@ -41,6 +47,7 @@ namespace IP_BusinessLogicLayer
                     case 0:
                         if (_returnMenuCode == 1)
                         {
+                            _treatmentActive = true;
                             //start prime program
                             break;
                         }
@@ -71,7 +78,9 @@ namespace IP_BusinessLogicLayer
                     case 6:
                         if (_returnMenuCode == 2)
                         {
+                            _treatmentActive = false;
                             _newMenu = FindMenuArray(0);
+                            
                             //Behandlingen er afsluttet
                             //returnere til hoved og data skal gemmes (før den går til hovedmenu)
                             break;
@@ -103,7 +112,27 @@ namespace IP_BusinessLogicLayer
             _menuList.ReloadMenues();
         }
 
+        public void OnTimerExpired(object sender, EventArgs e)
+        {
+            if (_treatmentActive)
+            {
+                _treatmentActive = false; //behandling stoppet
+                //Hvad skal der ske når programmet er slut
+            }
+        }
 
-        
+        public void OnTimerTick(object sender, EventArgs e)
+        {
+            if (_treatmentActive)
+            {
+                _menuList.Timer = Convert.ToString(_timer.TimeRemainingHour);
+                _menuList.Minutter = Convert.ToString(_timer.TimeRemainingMinutes);
+            }
+            _menuList.ReloadMenues();
+        }
+
+
+
+
     }
 }
