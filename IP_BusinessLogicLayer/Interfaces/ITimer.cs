@@ -15,5 +15,6 @@ namespace IP_BusinessLogicLayer.Interfaces
 
         void Start(int hours, int minuttes);
         void Stop();
+        void Resume();
     }
 }

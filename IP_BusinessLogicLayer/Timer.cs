@@ -25,14 +25,23 @@ namespace IP_BusinessLogicLayer
 
         public void Start(int hours, int minuttes)
         {
-            TimeRemainingHour = hours;
-            TimeRemainingMinutes = minuttes;
-            timer.Enabled = true;
+            if (hours >= 0 && minuttes >= 0 && minuttes < 60)
+            {
+                TimeRemainingHour = hours;
+                TimeRemainingMinutes = minuttes;
+                timer.Enabled = true;
+            }
+
         }
 
         public void Stop()
         {
             timer.Enabled = false;
+        }
+
+        public void Resume()
+        {
+            timer.Enabled = true;
         }
 
         private void Expire()
@@ -43,9 +52,17 @@ namespace IP_BusinessLogicLayer
 
         private void OnTimerEvent(object sender, System.Timers.ElapsedEventArgs args)
         {
-            // One tick has passed
-            // Do what I should
-            TimeRemainingMinutes -= 1;
+            //Tjekker om der skal tælles ned på timer eller minutter
+            if (TimeRemainingMinutes == 0)
+            {
+                TimeRemainingHour -= 1;
+                TimeRemainingMinutes = 59;
+            }
+            else
+            {
+                TimeRemainingMinutes -= 1;
+            }
+            
             TimerTick?.Invoke(this, EventArgs.Empty);
 
             if (TimeRemainingHour <= 0 && TimeRemainingMinutes <= 0)

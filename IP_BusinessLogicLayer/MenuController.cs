@@ -60,8 +60,9 @@ namespace IP_BusinessLogicLayer
                         if (_returnMenuCode == 2)
                         {
                             _newMenu = FindMenuArray(4);
-                            //Behandlingen er sat på pause
-                            break;
+                            _timer.Stop();
+                        //Behandlingen er sat på pause
+                        break;
                         }
                         if (_returnMenuCode == 3)
                         {
@@ -118,6 +119,7 @@ namespace IP_BusinessLogicLayer
             {
                 _treatmentActive = false; //behandling stoppet
                 //Hvad skal der ske når programmet er slut
+                //Information skal sendes til ICA
             }
         }
 

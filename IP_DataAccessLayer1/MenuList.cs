@@ -10,7 +10,6 @@ namespace IP_DataAccessLayer1
     {
         public List<string[]> MenuListDansk;
         public string BatteriNiveau { get; set; }
-    
         public string Flowrate { get; set; }
         public string Timer { get; set; }
         public string Minutter { get; set; }

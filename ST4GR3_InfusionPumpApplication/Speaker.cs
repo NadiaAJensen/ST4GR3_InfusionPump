@@ -27,7 +27,7 @@ namespace ST4GR3_InfusionPumpApplication
 
         public void HandleAlarm(object sender, EventArgs e)
         {
-            switch (_alarmControl.AlarmCode) // Tjekker først alarm koden
+            switch (_alarmControl.AlarmCode) // Tjekker først alarm koden, hvis den nu skulle agere forskelligt
             {
                 case "Batteri":
                     AlarmSpeakerOn();
