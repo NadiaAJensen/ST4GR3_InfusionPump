@@ -14,10 +14,13 @@ namespace IP_BusinessLogicLayer
         private int _lastMenuIndex;
         private byte _returnMenuCode;
         private string[] _newMenu;
-        public MenuController()
+        private IAlarmControl _alarmControl;
+        public MenuController(IAlarmControl alarmControl)
         {
+            _alarmControl = alarmControl;
             _menuList = new MenuList();
             _newMenu = new string[4];
+            _alarmControl.ChangedBatteryStatus += new EventHandler(BatteryStatusChanged);
 
         }
 
@@ -92,10 +95,13 @@ namespace IP_BusinessLogicLayer
 
         }
 
-        public void ChangeMenuValues()
+        public void BatteryStatusChanged(object sender, EventArgs e)
         {
-           // _menuList.MenuListDansk[0] 
+            _menuList.BatteriNiveau = Convert.ToString(_alarmControl.GetBatteryLevel());
+            _menuList.ReloadMenues();
         }
+
+
         
     }
 }
