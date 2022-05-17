@@ -8,12 +8,12 @@ using RaspberryPiNetCore.ADC;
 
 namespace IP_DataAccessLayer1
 {
-    public class BatteryStatus
+    public class ReadBatteryStatus
     {
         private ADC1015 _adc1015;
         private int _batteryADC;
 
-        public BatteryStatus()
+        public ReadBatteryStatus()
         {
             _adc1015 = new ADC1015(72, 512);
         }

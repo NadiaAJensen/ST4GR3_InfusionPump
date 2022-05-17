@@ -15,9 +15,11 @@ namespace IP_BusinessLogicLayer
         private byte _returnMenuCode;
         private string[] _newMenu;
         private IAlarmControl _alarmControl;
-        public MenuController(IAlarmControl alarmControl)
+        private IBatteryStatus _batteryStatus;
+        public MenuController(IAlarmControl alarmControl, IBatteryStatus batteryStatus)
         {
             _alarmControl = alarmControl;
+            _batteryStatus = batteryStatus;
             _menuList = new MenuList();
             _newMenu = new string[4];
             _alarmControl.ChangedBatteryStatus += new EventHandler(BatteryStatusChanged);
