@@ -14,6 +14,7 @@ namespace IP_BusinessLogicLayer
         private int _ADCValue;
         private int _batteryLevel;
         public event EventHandler ChangedBatteryStatus;
+        public event EventHandler LowBatteryLevel;
 
         public BatteryStatus()
         {
@@ -56,6 +57,10 @@ namespace IP_BusinessLogicLayer
             }
 
             ChangedBatteryStatus?.Invoke(this, System.EventArgs.Empty);
+            if (_batteryLevel < 21)
+            {
+                LowBatteryLevel?.Invoke(this, System.EventArgs.Empty); //Alarmer ved lavt batteri
+            }
         }
 
         public int GetBatteryLevel()

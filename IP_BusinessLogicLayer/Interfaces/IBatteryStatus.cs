@@ -9,6 +9,7 @@ namespace IP_BusinessLogicLayer.Interfaces
     public interface IBatteryStatus
     {
         event EventHandler ChangedBatteryStatus;
+        event EventHandler LowBatteryLevel;
         void CalculateBatteryStatus();
         int GetBatteryLevel();
     }

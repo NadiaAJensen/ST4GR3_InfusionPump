@@ -8,6 +8,8 @@ namespace IP_BusinessLogicLayer.Interfaces
 {
     public interface IAlarmControl
     {
+        string[] LastAlarmMessage { get; }
+        event EventHandler Alarm;
         void Run();
     }
 }
