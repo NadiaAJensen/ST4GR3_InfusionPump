@@ -121,9 +121,9 @@ namespace IP_BusinessLogicLayer
         {
             if (TreatmentActive)
             {
-                TreatmentActive = false; //behandling stoppet
-                //Hvad skal der ske når programmet er slut
-                //Information skal sendes til ICA
+                TreatmentActive = false; 
+                _infusionControl.StopInfusionProgram();
+                //Information skal sendes til ICA, hvilket gøres fra stop metoden
             }
         }
 

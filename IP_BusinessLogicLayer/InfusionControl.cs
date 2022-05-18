@@ -59,14 +59,13 @@ namespace IP_BusinessLogicLayer
             InfusionProgramIsActive = false;
             _timer.Stop();
             _pump.Stop();
-            // skal gemme og sende data retur
+            // skal gemme og sende data retur til ICA
         }
         public void PauseInfusionProgram()
         {
             InfusionProgramIsActive = false;
             _timer.Stop();
             _pump.Stop();
-            //stop pumpen.
         }
 
         public void SaveInfusionPlan(object sender, EventArgs e)
