@@ -9,12 +9,13 @@ namespace DTO
 {
     public class DTO_FlowrateIntervals
     {
-        public double Hours { get; set; }
+        public int Time { get; set; }
         public double Flowrate { get; set; }
 
         public DTO_FlowrateIntervals(double time, double flowrate)
         {
-
+            Time = Convert.ToInt32(time);
+            Flowrate = flowrate;
         }
     }
 }

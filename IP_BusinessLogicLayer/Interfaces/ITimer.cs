@@ -10,6 +10,7 @@ namespace IP_BusinessLogicLayer.Interfaces
     {
         int TimeRemainingHour { get; }
         int TimeRemainingMinutes { get; }
+        int TotalTimeRemainingInMinutes { get; }
         event EventHandler Expired;
         event EventHandler TimerTick;
 

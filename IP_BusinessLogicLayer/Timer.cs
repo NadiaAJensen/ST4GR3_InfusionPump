@@ -10,6 +10,7 @@ namespace IP_BusinessLogicLayer
     {
         public int TimeRemainingHour { get; private set; }
         public int TimeRemainingMinutes { get; private set; }
+        public int TotalTimeRemainingInMinutes { get; private set; }
         public event EventHandler Expired;
         public event EventHandler TimerTick;
 
@@ -29,6 +30,7 @@ namespace IP_BusinessLogicLayer
             {
                 TimeRemainingHour = hours;
                 TimeRemainingMinutes = minuttes;
+                TotalTimeRemainingInMinutes = hours * 60 + minuttes;
                 timer.Enabled = true;
             }
 
@@ -57,10 +59,12 @@ namespace IP_BusinessLogicLayer
             {
                 TimeRemainingHour -= 1;
                 TimeRemainingMinutes = 59;
+                TotalTimeRemainingInMinutes -= 1;
             }
             else
             {
                 TimeRemainingMinutes -= 1;
+                TotalTimeRemainingInMinutes -= 1;
             }
             
             TimerTick?.Invoke(this, EventArgs.Empty);
