@@ -8,6 +8,7 @@ namespace ST4GR3_InfusionPumpApplication.Interfaces
 {
     public interface ISpeaker
     {
+        void HandleAlarm();
         void AlarmSpeakerOn();
         void AlarmSpeakerOff();
         void AlarmSpeakerMute();

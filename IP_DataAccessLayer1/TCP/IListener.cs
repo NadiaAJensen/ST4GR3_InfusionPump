@@ -8,6 +8,7 @@ namespace IP_DataAccessLayer1.TCP
 {
     public interface IListener
     {
+        event EventHandler<TreatmentPlanRecievedEventArgs> TreatmentplanRecieved;
         void RecieveData();
 
     }

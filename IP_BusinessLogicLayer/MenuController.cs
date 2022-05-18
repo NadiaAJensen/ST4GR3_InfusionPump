@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IP_BusinessLogicLayer.Interfaces;
 using IP_DataAccessLayer1;
+using IP_DataAccessLayer1.TCP;
 
 //using ST4GR3_InfusionPumpApplication;
 
@@ -20,7 +21,7 @@ namespace IP_BusinessLogicLayer
         private IBatteryStatus _batteryStatus;
         private ITimer _timer;
         private IInfusionControl _infusionControl;
-        public bool TreatmentActive { get; set; } //Hvis den har modtaget infusionsplan
+        public bool PlanRecieved { get; set; } //Hvis den har modtaget infusionsplan
         public MenuController(IAlarmControl alarmControl, IBatteryStatus batteryStatus, ITimer timer, IInfusionControl infusionControl)
         {
             _alarmControl = alarmControl;
@@ -29,11 +30,11 @@ namespace IP_BusinessLogicLayer
             _infusionControl = infusionControl;
             _menuList = new MenuList();
             _newMenu = new string[4];
-            TreatmentActive = false;
+            PlanRecieved = false;
             _batteryStatus.ChangedBatteryStatus += new EventHandler(BatteryStatusChanged);
             _timer.Expired += new EventHandler(OnTimerExpired);
             _timer.TimerTick += new EventHandler(OnTimerTick);
-
+            _infusionControl.ChangedFlowrate += new EventHandler(HandleFlowrateChanged);
         }
 
         public string[] FindMenuArray(int menuIndex)
@@ -51,7 +52,6 @@ namespace IP_BusinessLogicLayer
                     case 0:
                         if (_returnMenuCode == 1)
                         {
-                            TreatmentActive = true; // skal nok sættes et andet sted fra
                             _infusionControl.Prime();
                             //start prime program
                             break;
@@ -86,7 +86,7 @@ namespace IP_BusinessLogicLayer
                         {
                             //Behandling afsluttes
                             _infusionControl.StopInfusionProgram();
-                            TreatmentActive = false; // Nu er er ikke længere en plantilgængelig
+                            PlanRecieved = false; // Nu er er ikke længere en plantilgængelig
                             _newMenu = FindMenuArray(0);
                             //returnere til hoved og data skal gemmes (før den går til hovedmenu). Dette gøres fra infusionControl
                             break;
@@ -119,9 +119,8 @@ namespace IP_BusinessLogicLayer
 
         public void OnTimerExpired(object sender, EventArgs e)
         {
-            if (TreatmentActive)
+            if (_infusionControl.InfusionProgramIsActive)
             {
-                TreatmentActive = false; 
                 _infusionControl.StopInfusionProgram();
                 //Information skal sendes til ICA, hvilket gøres fra stop metoden
             }
@@ -129,11 +128,16 @@ namespace IP_BusinessLogicLayer
 
         public void OnTimerTick(object sender, EventArgs e)
         {
-            if (TreatmentActive)
+            if (_infusionControl.InfusionProgramIsActive)
             {
                 _menuList.Timer = Convert.ToString(_timer.TimeRemainingHour);
                 _menuList.Minutter = Convert.ToString(_timer.TimeRemainingMinutes);
             }
+            _menuList.ReloadMenues();
+        }
+        public void HandleFlowrateChanged(object sender, EventArgs e)
+        {
+            _menuList.Flowrate = Convert.ToString(_infusionControl.Flowrate);
             _menuList.ReloadMenues();
         }
 

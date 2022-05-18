@@ -88,7 +88,7 @@ namespace ST4GR3_InfusionPumpApplication
                     if (_startButton.IsPressed())
                     {
                         // skal tjekkes om den er klar til program først
-                        if (_menuController.TreatmentActive)
+                        if (_menuController.PlanRecieved)
                         {
                             _currentMenu = _menuController.HandleMenuFeedback(5);
                             _infusionControl.StartInfusionProgram();
@@ -132,6 +132,9 @@ namespace ST4GR3_InfusionPumpApplication
                 case "Tid":
                     _lcdDisplay.lcdSetBackLight(255,255,0);
                     break;
+                case "Bobbel":
+                    _lcdDisplay.lcdSetBackLight(255,0,0);
+                    break;
             }
 
             byte c = 0;
@@ -146,6 +149,7 @@ namespace ST4GR3_InfusionPumpApplication
             {
                 if (_encoder.isPressed())
                     break;
+                //Der skal trykkes for at kommer videre fra beskeden.
             }
             
 

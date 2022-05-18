@@ -8,7 +8,9 @@ namespace IP_BusinessLogicLayer.Interfaces
 {
     public interface IInfusionControl
     {
-        public bool InfusionProgramIsActive { get; }
+        bool InfusionProgramIsActive { get; }
+        double Flowrate { get; }
+        event EventHandler ChangedFlowrate;
         void Prime();
         void StartInfusionProgram();
         void StopInfusionProgram();

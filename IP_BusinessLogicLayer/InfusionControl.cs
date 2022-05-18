@@ -6,21 +6,26 @@ using System.Threading.Tasks;
 using DTO;
 using IP_BusinessLogicLayer.Interfaces;
 using IP_DataAccessLayer1;
+using IP_DataAccessLayer1.TCP;
 
 namespace IP_BusinessLogicLayer
 {
     public class InfusionControl : IInfusionControl
     {
         public bool InfusionProgramIsActive { get; private set; }
+        public double Flowrate { get; private set; }
         private ITimer _timer;
         private IPump _pump;
+        private IListener _listener;
         private DTO_Treatmentplan _currentInfusionTreatmentplan;
-        
-        public InfusionControl(ITimer timer)
+        public event EventHandler ChangedFlowrate;
+
+        public InfusionControl(ITimer timer, IListener listener)
         {
             _timer = timer;
             _pump = new Pump();
-            //skal nok koble sig på et event på DTO'en
+            _listener = listener;
+            _listener.TreatmentplanRecieved += SaveInfusionPlan;
         }
 
         public void Prime()
@@ -43,7 +48,10 @@ namespace IP_BusinessLogicLayer
                     {
                         if (totalTime - _timer.TotalTimeRemainingInMinutes == dtoInterval.Time)
                         {
-                            _pump.Start(dtoInterval.Flowrate);
+                            Flowrate = dtoInterval.Flowrate;
+                            _pump.Start(Flowrate);
+                            ChangedFlowrate?.Invoke(this, EventArgs.Empty);
+                            // Sikre at flowrate også opdateres.
                             //Går kun derind og sætter flowrate, når når det passer med intervallet
                         }
                     }
@@ -68,10 +76,9 @@ namespace IP_BusinessLogicLayer
             _pump.Stop();
         }
 
-        public void SaveInfusionPlan(object sender, EventArgs e)
+        public void SaveInfusionPlan(object sender, TreatmentPlanRecievedEventArgs e)
         {
-            _currentInfusionTreatmentplan = new DTO_Treatmentplan(3, 40);
-            //Skal modtage den rigtige DTO
+            _currentInfusionTreatmentplan = e.Treatmentplan;
         }
     }
 }
