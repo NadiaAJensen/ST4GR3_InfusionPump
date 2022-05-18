@@ -12,7 +12,6 @@ namespace IP_DataAccessLayer1
     {
         private ADC1015 _adc1015;
         private int _batteryADC;
-
         public ReadBatteryStatus()
         {
             _adc1015 = new ADC1015(72, 512);

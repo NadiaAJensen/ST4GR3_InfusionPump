@@ -22,12 +22,11 @@ namespace ST4GR3_InfusionPumpApplication
             _alarmControl = alarmControl;
             _serialPort = new SerialPort("/dev/ttyS0", 9600, Parity.None, 8); ;
             _alarmControl.Alarm += new EventHandler(HandleAlarm);
-            //Er det denne port vi bruger?
         }
 
         public void HandleAlarm(object sender, EventArgs e)
         {
-            switch (_alarmControl.AlarmCode) // Tjekker først alarm koden, hvis den nu skulle agere forskelligt
+            switch (_alarmControl.AlarmCode) // Tjekker først alarm koden, hvis den nu skulle agere forskelligt. Her gør den dog det samme
             {
                 case "Batteri":
                     AlarmSpeakerOn();
@@ -39,7 +38,7 @@ namespace ST4GR3_InfusionPumpApplication
                     AlarmSpeakerOn();
                     break;
             }
-            Thread.Sleep(5000);
+            Thread.Sleep(5000); // Spiller lyden i 5 sekunder. 
             AlarmSpeakerOff();
         }
 

@@ -24,8 +24,6 @@ namespace ST4GR3_InfusionPumpApplication
         private IInfusionControl _infusionControl;
         private bool _breakloop;
         private string[] _currentMenu;
-        
-        
 
         public Display(IMenuController menuController, IButton startButton, IButton pauseButton, IButton stopButton, IAlarmControl alarmControl, IInfusionControl infusionControl)
         {
@@ -151,8 +149,6 @@ namespace ST4GR3_InfusionPumpApplication
                     break;
                 //Der skal trykkes for at kommer videre fra beskeden.
             }
-            
-
         }
     }
 }

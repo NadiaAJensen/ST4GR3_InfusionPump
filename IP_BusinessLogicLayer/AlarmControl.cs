@@ -35,12 +35,11 @@ namespace IP_BusinessLogicLayer
             while (true)
             {
                 _batteryStatus.CalculateBatteryStatus();
-                Thread.Sleep(60000); // så læser den hvert minut
-
+                Thread.Sleep(60000); // så læser den hvert minut på batteriet og den giver events til de klasser, der subscriber
             }
         }
 
-        public void OnTimerExpired(object sender, EventArgs e)
+        private void OnTimerExpired(object sender, EventArgs e)
         {
             LastAlarmMessage[0] = "Behandlingen er";
             LastAlarmMessage[1] = "faerdig";
@@ -48,7 +47,7 @@ namespace IP_BusinessLogicLayer
             Alarm?.Invoke(this,System.EventArgs.Empty);
             _sender.SendData("Besked til ICA: Alarm: tid udløbet");
         }
-        public void AlertLowBatteryLevel(object sender, EventArgs e)
+        private void AlertLowBatteryLevel(object sender, EventArgs e)
         {
             int value = _batteryStatus.GetBatteryLevel();
             LastAlarmMessage[0] = ($"Batteristatus: {value}%");
@@ -58,7 +57,7 @@ namespace IP_BusinessLogicLayer
             _sender.SendData("Besked til ICA: Lavt batteriniveau!");
         }
 
-        public void BobbleDetected(object sender, EventArgs e)
+        private void BobbleDetected(object sender, EventArgs e)
         {
             //Simulerer, at der er bobbel i røret. 
             LastAlarmMessage[0] = ("Boble detekteret");

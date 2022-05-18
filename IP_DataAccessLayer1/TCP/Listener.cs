@@ -35,7 +35,7 @@ namespace IP_DataAccessLayer1.TCP
             T_Plan.FlowrateIntervals.Add(new DTO_FlowrateIntervals(90, 1.7));
             T_Plan.FlowrateIntervals.Add(new DTO_FlowrateIntervals(120, 2));
             T_Plan.FlowrateIntervals.Add(new DTO_FlowrateIntervals(150, 2));
-
+            //Simulering af plan slut. Trigger nu event for de klasser, der skal have besked
             TreatmentplanRecieved?.Invoke(this, new TreatmentPlanRecievedEventArgs(T_Plan));
             
         }

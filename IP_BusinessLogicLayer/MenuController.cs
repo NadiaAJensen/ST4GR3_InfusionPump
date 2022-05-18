@@ -21,7 +21,7 @@ namespace IP_BusinessLogicLayer
         private IBatteryStatus _batteryStatus;
         private ITimer _timer;
         private IInfusionControl _infusionControl;
-        public bool PlanRecieved { get; set; } //Hvis den har modtaget infusionsplan
+        public bool PlanRecieved { get; private set; } //Hvis den har modtaget infusionsplan
         public MenuController(IAlarmControl alarmControl, IBatteryStatus batteryStatus, ITimer timer, IInfusionControl infusionControl)
         {
             _alarmControl = alarmControl;
@@ -111,13 +111,13 @@ namespace IP_BusinessLogicLayer
             return _newMenu;
         }
 
-        public void BatteryStatusChanged(object sender, EventArgs e)
+        private void BatteryStatusChanged(object sender, EventArgs e)
         {
             _menuList.BatteriNiveau = Convert.ToString(_batteryStatus.GetBatteryLevel());
             _menuList.ReloadMenues();
         }
 
-        public void OnTimerExpired(object sender, EventArgs e)
+        private void OnTimerExpired(object sender, EventArgs e)
         {
             if (_infusionControl.InfusionProgramIsActive)
             {
@@ -126,7 +126,7 @@ namespace IP_BusinessLogicLayer
             }
         }
 
-        public void OnTimerTick(object sender, EventArgs e)
+        private void OnTimerTick(object sender, EventArgs e)
         {
             if (_infusionControl.InfusionProgramIsActive)
             {
@@ -135,7 +135,7 @@ namespace IP_BusinessLogicLayer
             }
             _menuList.ReloadMenues();
         }
-        public void HandleFlowrateChanged(object sender, EventArgs e)
+        private void HandleFlowrateChanged(object sender, EventArgs e)
         {
             _menuList.Flowrate = Convert.ToString(_infusionControl.Flowrate);
             _menuList.ReloadMenues();
