@@ -25,10 +25,6 @@
     </Reference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="TCP\" />
-  </ItemGroup>
-
   <Target Name="LinuxDeployment" AfterTargets="PostBuildEvent">
     <Message Importance="high" Text="Linux deployment locally after VS Build of $(ProjectName)" />
     <MSBuild Condition="'$(DeployOnBuild)'!='true'" Projects="$(MSBuildProjectFullPath)" Properties="DeployOnBuild=true;PublishProfile=RPi;" />
