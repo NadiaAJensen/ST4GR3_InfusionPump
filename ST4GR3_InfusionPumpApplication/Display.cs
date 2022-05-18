@@ -21,12 +21,13 @@ namespace ST4GR3_InfusionPumpApplication
         private IButton _pauseButton;
         private IButton _stopButton;
         private IAlarmControl _alarmControl;
+        private IInfusionControl _infusionControl;
         private bool _breakloop;
         private string[] _currentMenu;
         
         
 
-        public Display(IMenuController menuController, IButton startButton, IButton pauseButton, IButton stopButton, IAlarmControl alarmControl)
+        public Display(IMenuController menuController, IButton startButton, IButton pauseButton, IButton stopButton, IAlarmControl alarmControl, IInfusionControl infusionControl)
         {
             _lcdDisplay = new SerLCD();
             _encoder = new TWIST();
@@ -35,6 +36,7 @@ namespace ST4GR3_InfusionPumpApplication
             _pauseButton = pauseButton;
             _stopButton = stopButton;
             _alarmControl = alarmControl;
+            _infusionControl = infusionControl;
             _currentMenu = new string[4];
             _breakloop = true;
 
@@ -89,6 +91,7 @@ namespace ST4GR3_InfusionPumpApplication
                         if (_menuController.TreatmentActive)
                         {
                             _currentMenu = _menuController.HandleMenuFeedback(5);
+                            _infusionControl.StartInfusionProgram();
                             _breakloop = false;
                         }
                     }
@@ -96,7 +99,7 @@ namespace ST4GR3_InfusionPumpApplication
                     if (_pauseButton.IsPressed())
                     {
                         // skal tjekkes om den er i gang allerede
-                        if (_menuController.TreatmentActive)
+                        if (_infusionControl.InfusionProgramIsActive)
                         {
                             _currentMenu = _menuController.HandleMenuFeedback(3);
                             _breakloop = false;
@@ -107,7 +110,7 @@ namespace ST4GR3_InfusionPumpApplication
                     if (_stopButton.IsPressed())
                     {
                         // skal tjekkes om behandlin er i gang
-                        if (_menuController.TreatmentActive)
+                        if (_infusionControl.InfusionProgramIsActive)
                         {
                             _currentMenu = _menuController.HandleMenuFeedback(6);
                             _breakloop = false;

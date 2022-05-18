@@ -16,6 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DTO\DTO.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="RaspberryNetCore">
       <HintPath>C:\RaspberryPi\RaspberryNetCore.dll</HintPath>
     </Reference>

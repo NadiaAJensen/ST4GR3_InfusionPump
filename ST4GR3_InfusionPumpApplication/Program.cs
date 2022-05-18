@@ -23,9 +23,11 @@ namespace ST4GR3_InfusionPumpApplication
             IBatteryStatus _batteryStatus = new BatteryStatus();
             ITimer _timer = new IP_BusinessLogicLayer.Timer();
             IAlarmControl _alarmController = new AlarmControl(_batteryStatus, _timer);
-            IMenuController _menuController = new MenuController(_alarmController, _batteryStatus, _timer);
+            IInfusionControl _infusionControl = new InfusionControl(_timer);
+            IMenuController _menuController = new MenuController(_alarmController, _batteryStatus, _timer, _infusionControl);
+            
 
-            IDisplay _display = new Display(_menuController,  _startButton, _pauseButton, _stopButton, _alarmController);
+            IDisplay _display = new Display(_menuController,  _startButton, _pauseButton, _stopButton, _alarmController, _infusionControl);
             Thread displayThread = new Thread(_display.Run);
             Thread alarmThread = new Thread(_alarmController.Run);
             displayThread.IsBackground = true;

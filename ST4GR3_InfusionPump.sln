@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IP_BusinessLogicLayer", "IP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST4GR3_InfusionPumpApplication", "ST4GR3_InfusionPumpApplication\ST4GR3_InfusionPumpApplication.csproj", "{A37F7469-50C2-4EFA-963F-D38F170B42D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IP_DataAccessLayer1", "IP_DataAccessLayer1\IP_DataAccessLayer1.csproj", "{7A5B9195-89ED-4D17-8313-ED3EED8033CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IP_DataAccessLayer1", "IP_DataAccessLayer1\IP_DataAccessLayer1.csproj", "{7A5B9195-89ED-4D17-8313-ED3EED8033CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO", "DTO\DTO.csproj", "{01E56618-A1FB-4BC9-BA17-ECF3CBE1F15F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{7A5B9195-89ED-4D17-8313-ED3EED8033CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A5B9195-89ED-4D17-8313-ED3EED8033CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A5B9195-89ED-4D17-8313-ED3EED8033CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01E56618-A1FB-4BC9-BA17-ECF3CBE1F15F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01E56618-A1FB-4BC9-BA17-ECF3CBE1F15F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01E56618-A1FB-4BC9-BA17-ECF3CBE1F15F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01E56618-A1FB-4BC9-BA17-ECF3CBE1F15F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -19,12 +19,14 @@ namespace IP_BusinessLogicLayer
         private IAlarmControl _alarmControl;
         private IBatteryStatus _batteryStatus;
         private ITimer _timer;
-        public bool TreatmentActive { get; set; }
-        public MenuController(IAlarmControl alarmControl, IBatteryStatus batteryStatus, ITimer timer)
+        private IInfusionControl _infusionControl;
+        public bool TreatmentActive { get; set; } //Hvis den har modtaget infusionsplan
+        public MenuController(IAlarmControl alarmControl, IBatteryStatus batteryStatus, ITimer timer, IInfusionControl infusionControl)
         {
             _alarmControl = alarmControl;
             _batteryStatus = batteryStatus;
             _timer = timer;
+            _infusionControl = infusionControl;
             _menuList = new MenuList();
             _newMenu = new string[4];
             TreatmentActive = false;
@@ -49,7 +51,8 @@ namespace IP_BusinessLogicLayer
                     case 0:
                         if (_returnMenuCode == 1)
                         {
-                            TreatmentActive = true;
+                            TreatmentActive = true; // skal nok sættes et andet sted fra
+                            _infusionControl.Prime();
                             //start prime program
                             break;
                         }
@@ -61,10 +64,10 @@ namespace IP_BusinessLogicLayer
                     case 3:
                         if (_returnMenuCode == 2)
                         {
+                            _infusionControl.PauseInfusionProgram();
                             _newMenu = FindMenuArray(4);
-                            _timer.Stop();
-                        //Behandlingen er sat på pause
-                        break;
+                            //Behandlingen er sat på pause i infusion control
+                            break;
                         }
                         if (_returnMenuCode == 3)
                         {
@@ -81,11 +84,11 @@ namespace IP_BusinessLogicLayer
                     case 6:
                         if (_returnMenuCode == 2)
                         {
-                            TreatmentActive = false;
+                            //Behandling afsluttes
+                            _infusionControl.StopInfusionProgram();
+                            TreatmentActive = false; // Nu er er ikke længere en plantilgængelig
                             _newMenu = FindMenuArray(0);
-                            
-                            //Behandlingen er afsluttet
-                            //returnere til hoved og data skal gemmes (før den går til hovedmenu)
+                            //returnere til hoved og data skal gemmes (før den går til hovedmenu). Dette gøres fra infusionControl
                             break;
                         }
                         if (_returnMenuCode == 3)
@@ -106,7 +109,6 @@ namespace IP_BusinessLogicLayer
                 }
 
             return _newMenu;
-
         }
 
         public void BatteryStatusChanged(object sender, EventArgs e)
