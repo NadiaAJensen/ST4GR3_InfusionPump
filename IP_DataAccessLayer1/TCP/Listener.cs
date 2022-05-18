@@ -10,10 +10,19 @@ namespace IP_DataAccessLayer1.TCP
     public class Listener : IListener
     {
         public event EventHandler<TreatmentPlanRecievedEventArgs> TreatmentplanRecieved;
+
         public Listener()
         {
             //Ved oprettelse simueleres en plan. Skulle lyttet efter en plan. 
+        }
+
+        public void Run()
+        {
             RecieveData();
+            while (true)
+            {
+                //Kører så den lytter på data fra ICA
+            }
         }
 
         public void RecieveData()

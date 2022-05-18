@@ -33,11 +33,18 @@ namespace ST4GR3_InfusionPumpApplication
 
             IDisplay _display = new Display(_menuController,  _startButton, _pauseButton, _stopButton, _alarmController, _infusionControl);
 
-            //Måske der også skal være en tråd til Listener
             Thread displayThread = new Thread(_display.Run);
             Thread alarmThread = new Thread(_alarmController.Run);
+            Thread listenThread = new Thread(_listener.Run);
+
             displayThread.IsBackground = true;
             alarmThread.IsBackground = true;
+            listenThread.IsBackground = true;
+
+            displayThread.Start();
+            alarmThread.Start();
+            listenThread.Start();
+
 
             while (true)
             {

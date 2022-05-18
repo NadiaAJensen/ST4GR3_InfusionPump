@@ -32,11 +32,10 @@ namespace IP_BusinessLogicLayer
 
         public void Run()
         {
-            // Måske denne tråd skal sætte tiden i gang
             while (true)
             {
                 _batteryStatus.CalculateBatteryStatus();
-                Thread.Sleep(30000); // så læser den hvert 30 sekund
+                Thread.Sleep(60000); // så læser den hvert minut
 
             }
         }

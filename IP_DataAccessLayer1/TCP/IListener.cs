@@ -10,6 +10,7 @@ namespace IP_DataAccessLayer1.TCP
     {
         event EventHandler<TreatmentPlanRecievedEventArgs> TreatmentplanRecieved;
         void RecieveData();
+        void Run();
 
     }
 }
