@@ -17,12 +17,14 @@ namespace IP_BusinessLogicLayer
         private ITimer _timer;
         private IPump _pump;
         private IListener _listener;
+        private ISender _sender;
         private DTO_Treatmentplan _currentInfusionTreatmentplan;
         public event EventHandler ChangedFlowrate;
 
-        public InfusionControl(ITimer timer, IListener listener)
+        public InfusionControl(ITimer timer, IListener listener, ISender sender)
         {
             _timer = timer;
+            _sender = sender;
             _pump = new Pump();
             _listener = listener;
             _listener.TreatmentplanRecieved += SaveInfusionPlan;
@@ -37,6 +39,7 @@ namespace IP_BusinessLogicLayer
         public void StartInfusionProgram()
         {
             InfusionProgramIsActive = true;
+            _sender.SendData("Besked til ICA: Nu er behandlingen startet");
             _timer.Start(_currentInfusionTreatmentplan.Hours, _currentInfusionTreatmentplan.Minuttes);
             int totalTime = _timer.TotalTimeRemainingInMinutes;
 
@@ -67,6 +70,7 @@ namespace IP_BusinessLogicLayer
             InfusionProgramIsActive = false;
             _timer.Stop();
             _pump.Stop();
+            _sender.SendData("Besked til ICA: Nu er behandlingen stoppet. Her er data");
             // skal gemme og sende data retur til ICA
         }
         public void PauseInfusionProgram()
@@ -74,11 +78,17 @@ namespace IP_BusinessLogicLayer
             InfusionProgramIsActive = false;
             _timer.Stop();
             _pump.Stop();
+            _sender.SendData("Besked til ICA: Nu er behandlingen pauset. Manglende tid er.");
         }
 
         public void SaveInfusionPlan(object sender, TreatmentPlanRecievedEventArgs e)
         {
-            _currentInfusionTreatmentplan = e.Treatmentplan;
+            if (!InfusionProgramIsActive)
+            {
+                _currentInfusionTreatmentplan = e.Treatmentplan;
+                _sender.SendData("Besked til ICA: Behandlingsplan modtaget");
+            }
+            //Gemmer kun ny plan, hvis den ikke er i gang
         }
     }
 }

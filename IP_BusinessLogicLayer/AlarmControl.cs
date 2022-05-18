@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using IP_BusinessLogicLayer.Interfaces;
 using IP_DataAccessLayer1;
+using IP_DataAccessLayer1.TCP;
 
 
 namespace IP_BusinessLogicLayer
@@ -14,13 +15,15 @@ namespace IP_BusinessLogicLayer
     {
         private IBatteryStatus _batteryStatus;
         private ITimer _timer;
+        private ISender _sender;
         public event EventHandler Alarm;
         public string[] LastAlarmMessage { get; private set; }
         public string AlarmCode { get; private set; }
-        public AlarmControl(IBatteryStatus batteryStatus, ITimer timer)
+        public AlarmControl(IBatteryStatus batteryStatus, ITimer timer, ISender sender)
         {
             _batteryStatus = batteryStatus;
             _timer = timer;
+            _sender = sender;
             _timer.Expired += new EventHandler(OnTimerExpired);
             _batteryStatus.LowBatteryLevel += new EventHandler(AlertLowBatteryLevel);
             //Skal i teorien også koble sig til bobbelsensor - men denne implementeres ikke. 
@@ -44,7 +47,7 @@ namespace IP_BusinessLogicLayer
             LastAlarmMessage[1] = "faerdig";
             AlarmCode = "Tid";
             Alarm?.Invoke(this,System.EventArgs.Empty);
-            //Vi skal desuden have informeret ICA
+            _sender.SendData("Besked til ICA: Alarm: tid udløbet");
         }
         public void AlertLowBatteryLevel(object sender, EventArgs e)
         {
@@ -53,7 +56,7 @@ namespace IP_BusinessLogicLayer
             LastAlarmMessage[1] = "";
             AlarmCode = "Batteri";
             Alarm?.Invoke(this, System.EventArgs.Empty);
-            //Vi skal desuden have informeret ICA
+            _sender.SendData("Besked til ICA: Lavt batteriniveau!");
         }
 
         public void BobbleDetected(object sender, EventArgs e)
@@ -63,7 +66,7 @@ namespace IP_BusinessLogicLayer
             LastAlarmMessage[1] = "";
             AlarmCode = "Bobbel";
             Alarm?.Invoke(this, System.EventArgs.Empty);
-            //Vi skal desuden have informeret ICA
+            _sender.SendData("Besked til ICA: Bobbel detekteret");
             //Der burde nok laves et filter på denne.
         }
 
