@@ -8,6 +8,7 @@ namespace IP_BusinessLogicLayer.Interfaces
 {
     public interface IMenuController
     {
+        bool TreatmentActive { get; set; }
         string[] FindMenuArray(int menuIndex);
 
         string[] HandleMenuFeedback(byte choice);

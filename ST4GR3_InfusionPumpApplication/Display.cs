@@ -86,24 +86,34 @@ namespace ST4GR3_InfusionPumpApplication
                     if (_startButton.IsPressed())
                     {
                         // skal tjekkes om den er klar til program først
-                        _currentMenu = _menuController.HandleMenuFeedback(5);
-                        _breakloop = false;
+                        if (_menuController.TreatmentActive)
+                        {
+                            _currentMenu = _menuController.HandleMenuFeedback(5);
+                            _breakloop = false;
+                        }
                     }
 
                     if (_pauseButton.IsPressed())
                     {
                         // skal tjekkes om den er i gang allerede
-                        _currentMenu = _menuController.HandleMenuFeedback(3);
-                        _breakloop = false;
+                        if (_menuController.TreatmentActive)
+                        {
+                            _currentMenu = _menuController.HandleMenuFeedback(3);
+                            _breakloop = false;
+                            // Og så skal der pauses
+                        }
                     }
 
                     if (_stopButton.IsPressed())
                     {
                         // skal tjekkes om behandlin er i gang
-                        _currentMenu = _menuController.HandleMenuFeedback(6);
-                        _breakloop = false;
+                        if (_menuController.TreatmentActive)
+                        {
+                            _currentMenu = _menuController.HandleMenuFeedback(6);
+                            _breakloop = false;
+                            //og så skal behandlingen stoppes.
+                        }
                     }
-
                 }
             }
         }

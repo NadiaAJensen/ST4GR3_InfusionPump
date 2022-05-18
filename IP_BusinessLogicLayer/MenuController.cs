@@ -17,7 +17,7 @@ namespace IP_BusinessLogicLayer
         private IAlarmControl _alarmControl;
         private IBatteryStatus _batteryStatus;
         private ITimer _timer;
-        private bool _treatmentActive;
+        public bool TreatmentActive { get; set; }
         public MenuController(IAlarmControl alarmControl, IBatteryStatus batteryStatus, ITimer timer)
         {
             _alarmControl = alarmControl;
@@ -25,7 +25,7 @@ namespace IP_BusinessLogicLayer
             _timer = timer;
             _menuList = new MenuList();
             _newMenu = new string[4];
-            _treatmentActive = false;
+            TreatmentActive = false;
             _batteryStatus.ChangedBatteryStatus += new EventHandler(BatteryStatusChanged);
             _timer.Expired += new EventHandler(OnTimerExpired);
             _timer.TimerTick += new EventHandler(OnTimerTick);
@@ -47,7 +47,7 @@ namespace IP_BusinessLogicLayer
                     case 0:
                         if (_returnMenuCode == 1)
                         {
-                            _treatmentActive = true;
+                            TreatmentActive = true;
                             //start prime program
                             break;
                         }
@@ -79,7 +79,7 @@ namespace IP_BusinessLogicLayer
                     case 6:
                         if (_returnMenuCode == 2)
                         {
-                            _treatmentActive = false;
+                            TreatmentActive = false;
                             _newMenu = FindMenuArray(0);
                             
                             //Behandlingen er afsluttet
@@ -115,9 +115,9 @@ namespace IP_BusinessLogicLayer
 
         public void OnTimerExpired(object sender, EventArgs e)
         {
-            if (_treatmentActive)
+            if (TreatmentActive)
             {
-                _treatmentActive = false; //behandling stoppet
+                TreatmentActive = false; //behandling stoppet
                 //Hvad skal der ske når programmet er slut
                 //Information skal sendes til ICA
             }
@@ -125,7 +125,7 @@ namespace IP_BusinessLogicLayer
 
         public void OnTimerTick(object sender, EventArgs e)
         {
-            if (_treatmentActive)
+            if (TreatmentActive)
             {
                 _menuList.Timer = Convert.ToString(_timer.TimeRemainingHour);
                 _menuList.Minutter = Convert.ToString(_timer.TimeRemainingMinutes);

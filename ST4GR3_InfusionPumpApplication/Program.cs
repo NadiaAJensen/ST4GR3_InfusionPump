@@ -33,7 +33,7 @@ namespace ST4GR3_InfusionPumpApplication
 
             while (true)
             {
-                
+                //Kører bare, så skal afbrydes for stop.
             }
             
         }

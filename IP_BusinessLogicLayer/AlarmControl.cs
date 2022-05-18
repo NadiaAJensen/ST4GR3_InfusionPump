@@ -23,6 +23,7 @@ namespace IP_BusinessLogicLayer
             _timer = timer;
             _timer.Expired += new EventHandler(OnTimerExpired);
             _batteryStatus.LowBatteryLevel += new EventHandler(AlertLowBatteryLevel);
+            //Skal i teorien også koble sig til bobbelsensor - men denne implementeres ikke. 
             LastAlarmMessage = new string[2];
         }
 
@@ -63,6 +64,7 @@ namespace IP_BusinessLogicLayer
             AlarmCode = "Bobbel";
             Alarm?.Invoke(this, System.EventArgs.Empty);
             //Vi skal desuden have informeret ICA
+            //Der burde nok laves et filter på denne.
         }
 
 
