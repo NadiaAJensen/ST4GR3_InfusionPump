@@ -78,7 +78,7 @@ namespace IP_BusinessLogicLayer
             InfusionProgramIsActive = false;
             _timer.Stop();
             _pump.Stop();
-            _sender.SendData("Besked til ICA: Nu er behandlingen pauset. Manglende tid er.");
+            _sender.SendData($"Besked til ICA: Nu er behandlingen pauset. Manglende tid er.{_timer.TotalTimeRemainingInMinutes}");
         }
 
         private void SaveInfusionPlan(object sender, TreatmentPlanRecievedEventArgs e)

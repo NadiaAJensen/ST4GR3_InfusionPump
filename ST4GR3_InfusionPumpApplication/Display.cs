@@ -88,7 +88,7 @@ namespace ST4GR3_InfusionPumpApplication
                         // skal tjekkes om den er klar til program først
                         if (_menuController.PlanRecieved)
                         {
-                            _currentMenu = _menuController.HandleMenuFeedback(5);
+                            _currentMenu = _menuController.FindMenuArray(5);
                             _infusionControl.StartInfusionProgram();
                             _breakloop = false;
                         }
@@ -99,7 +99,7 @@ namespace ST4GR3_InfusionPumpApplication
                         // skal tjekkes om den er i gang allerede
                         if (_infusionControl.InfusionProgramIsActive)
                         {
-                            _currentMenu = _menuController.HandleMenuFeedback(3);
+                            _currentMenu = _menuController.FindMenuArray(3);
                             _breakloop = false;
                             // Og så skal der pauses
                         }
@@ -110,7 +110,7 @@ namespace ST4GR3_InfusionPumpApplication
                         // skal tjekkes om behandlin er i gang
                         if (_infusionControl.InfusionProgramIsActive)
                         {
-                            _currentMenu = _menuController.HandleMenuFeedback(6);
+                            _currentMenu = _menuController.FindMenuArray(6);
                             _breakloop = false;
                             //og så skal behandlingen stoppes.
                         }

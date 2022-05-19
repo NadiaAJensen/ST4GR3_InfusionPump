@@ -54,6 +54,8 @@ namespace IP_BusinessLogicLayer
                         {
                             _infusionControl.Prime();
                             //start prime program
+                            _newMenu = FindMenuArray(1);
+                            _newMenu = FindMenuArray(2);
                             break;
                         }
                         else
