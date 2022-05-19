@@ -26,6 +26,8 @@ namespace ST4GR3_InfusionPumpApplication
         {
             _gpioPin = pinNumber;
             _value = false;
+            GpioControl = new GpioController();
+            GpioControl.OpenPin(_gpioPin, PinMode.InputPullUp);
         }
         public bool IsPressed()
         {
@@ -34,7 +36,7 @@ namespace ST4GR3_InfusionPumpApplication
             else if (GpioControl.Read(_gpioPin) == PinValue.Low)
                 _value = false;
             Thread.Sleep(50);
-
+            
             return _value;
         }
     }
