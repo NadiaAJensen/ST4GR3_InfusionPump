@@ -18,9 +18,9 @@ namespace ST4GR3_InfusionPumpApplication
         static void Main(string[] args)
         {
             
-            IButton _startButton = new Button(23);
-            IButton _pauseButton = new Button(24);
-            IButton _stopButton = new Button(25); // Pin skal ændres til hvordan det sættes op.
+            IButton _startButton = new Button(17);
+            IButton _pauseButton = new Button(22);
+            IButton _stopButton = new Button(16); // Pin skal ændres til hvordan det sættes op.
 
             IBatteryStatus _batteryStatus = new BatteryStatus();
             IListener _listener = new Listener();
