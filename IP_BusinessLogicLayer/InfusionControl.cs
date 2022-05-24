@@ -47,7 +47,7 @@ namespace IP_BusinessLogicLayer
             {
                 foreach (var dtoInterval in _currentInfusionTreatmentplan.FlowrateIntervals)
                 {
-                    while (_timer.TotalTimeRemainingInMinutes!=0)
+                    while (_timer.TotalTimeRemainingInMinutes!=0 || totalTime - _timer.TotalTimeRemainingInMinutes == dtoInterval.Time)
                     {
                         if (totalTime - _timer.TotalTimeRemainingInMinutes == dtoInterval.Time)
                         {
